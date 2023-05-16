@@ -1,0 +1,90 @@
+import { db } from "../db.js";
+
+// export const getPosts = (req,res)=>{
+//     const q = req.query.cat ? "SELECT * FROM posts WHERE cat=?" : "SELECT * FROM posts";
+
+//     db.query(q, [req.query.cat], (err,data)=>{
+//         if(err) return res.status(500).send(err);
+
+//         return res.status(200).json(data);
+//     });
+// };
+
+export const getPost = (req,res)=>{
+    const q = "SELECT tour_id,`name_tour`, `headline`, `desc`, `group`, `city`, `prise`, `img`, tour.tout_schedule_id , tour.difficulty_level_id , tour.season_id , tour.type_tour_id , tour.accommodation_id  FROM tour JOIN tout_schedule ON tour.tout_schedule_id=tout_schedule.tout_schedule_id JOIN difficulty_level ON tour.difficulty_level_id=difficulty_level.difficulty_level_id JOIN season ON tour.season_id=season.season_id JOIN type_tour ON tour.type_tour_id=type_tour.type_tour_id JOIN accommodation ON tour.accommodation_id=accommodation.accommodation_id";
+
+    db.query(q, [req.params.id], (err, data)=> {
+        if(err) return res.status(500).json(err);
+
+        return res.status(200).json(data[0])
+        
+    });
+};
+
+export const addPost = (req,res)=>{
+    
+            
+        const q = "INSERT INTO tour (`name_tour`, `headline`, `desc`, `group`, `city`, `prise`, `img`, `tout_schedule_id` , `difficulty_level_id` , `season_id` , `type_tour_id` , `accommodation_id`) VALUE (?)";
+
+        const values = [
+            req.body.name_tour,
+            req.body.headline,
+            req.body.desc,
+            req.body.group,
+            req.body.city,
+            req.body.prise,
+            req.body.img,
+            req.body.tout_schedule_id,
+            req.body.difficulty_level_id,
+            req.body.season_id,
+            req.body.type_tour_id,
+            req.body.accommodation_id,
+            
+        ]
+        db.query(q,[values], (err,data)=> {
+            if (err) return res.status(500).json(err);
+            return res.json("Тур создан.");
+        })
+    
+};
+
+export const deletePost = (req, res) => {
+        const tourId = req.params.id;
+        const q = "DELETE FROM tour WHERE `tour_id` = ? ";
+  
+        db.query(q, [tourId], (err, data) => {
+        if (err) return res.status(403).json("Вы можете удалить тур!");
+  
+        return res.json("Тур удален!");
+        });
+   
+};
+
+export const updatePost = (req, res) => {
+  
+
+    const tourId = req.params.id;
+    const q =
+      "UPDATE tour SET `name_tour`=?,`headline`=?,`decs`=?,`group`=?,`city`=?,`prise`=?,`group`=?,`img`=? ,`tout_schedule_id`=?,`difficulty_level_id`=?,`season_id`=?,`type_tour_id`=?,`accommodation_id`=? WHERE `tour_id` = ? ";
+
+    const values = [
+            req.body.name_tour,
+            req.body.headline,
+            req.body.desc,
+            req.body.group,
+            req.body.city,
+            req.body.prise,
+            req.body.img,
+            req.body.tout_schedule_id,
+            req.body.difficulty_level_id,
+            req.body.season_id,
+            req.body.type_tour_id,
+            req.body.accommodation_id,
+    ];
+
+    db.query(q, [...values, tourId], (err, data) => {
+      if (err) return res.status(500).json(err);
+      return res.json("Тур обновлен.");
+    });
+  
+};
