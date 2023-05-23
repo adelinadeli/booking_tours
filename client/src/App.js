@@ -10,12 +10,16 @@ import Single from "./pages/Novosti/Single";
 import Write from "./pages/Admin/Write";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer";
-import User from "./pages/User/user";
-import Admin from "./pages/Admin/admin";
+import User from "./pages/User/User";
+import Admin from "./pages/Admin/Admin";
 import Tour from "./pages/Tour/Tour";
+import OneTour from "./pages/Tour/OneTour";
 import AboutUs from "./pages/AboutUs";
 import PotborTour from "./pages/Tour/PotborTour"
 import Home from "./pages/Home";
+import Filter from '../src/components/Filters/Filters';
+
+import AplicationUser from "./pages/Admin/applicationuser/ApplicationUser";
 import "./style.scss"
 
 const Layout = () => {
@@ -34,6 +38,9 @@ const router = createBrowserRouter([
     element: <Layout/>,
     children: [
       {
+        path: "/Filter",
+        element: <Filter/>,
+      },{
         path: "/Novosti",
         element: <Novosti/>,
       },
@@ -41,6 +48,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home/>,
       },
+      // {
+      //   path: "/Admin/:id",
+      //   element: <AplicationUser/>,
+      // },
       {
         path: "/post/:id",
         element: <Single/>,
@@ -52,10 +63,17 @@ const router = createBrowserRouter([
       {
         path: "/Tour",
         element: <Tour/>,
+      },{
+        path: "/Tour/:id",
+        element: <OneTour/>,
       },
       {
         path: "/Admin",
         element: <Admin/>,
+      },
+      {
+        path: "/User",
+        element: <User/>,
       },
       {
         path: "/PotborTour",

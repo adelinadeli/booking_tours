@@ -17,17 +17,19 @@ function PotborTour() {
       setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
     const [err, setError] = useState(null);
-    const navigate = useNavigate();
+
+   
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
           await axios.post("/authuser/application", inputs);
-          navigate("/");
+          
         } catch (err) {
           setError(err.response.data);
+          
         }
       };
-  
+      
   return (
   
 
@@ -61,7 +63,9 @@ function PotborTour() {
                     </div>
                     <div className="flex items-center justify-between">
                          <button onClick={handleSubmit} className="bg-green-500 text-white text-2xl font-medium px-4 py-2 rounded shadow">Отправить</button>
+                         {err && <p className="red"><b>{err}</b></p>}
                     </div>
+                    
                 </form>
             </div>
           </div>

@@ -70,27 +70,27 @@ const Register = () => {
             <form action="">
                 <div className="relative mt-6">
                     <input type="text" onChange={e=>setSurname(e.target.value)} name="surname" id="surname" placeholder="surname" className="peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" autoComplete="NA" />
-                    <label htmlFor="surname" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Фамилия</label>
+                    <label htmlFor="surname" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-md peer-focus:text-gray-800">Фамилия</label>
                 </div>
 
                 <div className="relative mt-6">
                     <input type="text" name="username" id="username" onChange={e=>setUsername(e.target.value)} placeholder="username" className="peer peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" />
-                    <label htmlFor="username" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Имя</label>
+                    <label htmlFor="username" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-md peer-focus:text-gray-800">Имя</label>
                 </div>
 
                 <div className="relative mt-6">
                     <input type="text" name="login" id="login" onChange={e=>setLogin(e.target.value)} placeholder="login" className="peer peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" />
-                    <label htmlFor="login" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Логин</label>
+                    <label htmlFor="login" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-md peer-focus:text-gray-800">Логин</label>
                 </div>
 
                 <div className="relative mt-6">
                     <input type="email" name="email" id="email" placeholder="123@yandex.ru" onChange={e=>setEmail(e.target.value)} className="peer peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" />
-                    <label htmlFor="email" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Почта</label>
+                    <label htmlFor="email" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-md peer-focus:text-gray-800">Почта</label>
                 </div>
 
                 <div className="relative mt-6">
                     <input type="text" name="telephone" id="telephone" onChange={e=>setTelephone(e.target.value)}  placeholder="8 999 999 99 99" className="peer peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" />
-                    <label htmlFor="telephone" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Телефон</label>
+                    <label htmlFor="telephone" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-md peer-focus:text-gray-800">Телефон</label>
                 </div>
                 
                 <div className="relative mt-6">
@@ -100,17 +100,17 @@ const Register = () => {
 
                 <div className="relative mt-6">
                     <input type="password" name="password" id="password" onChange={e=>setPassword(e.target.value)} placeholder="Password" className="peer peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" />
-                    <label htmlFor="password" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Пароль</label>
+                    <label htmlFor="password" className="pointer-events-none absolute top-0  left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-md peer-focus:text-gray-800">Пароль</label>
                 </div>
 
                 <div className="my-6">
-                    <button onClick={handleSubmit} type="submit" className="w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none">Регистрация</button>
-                    {err && <p>{err}</p>}
+                    <button onClick={handleSubmit} type="submit" className="w-full rounded-md bg-black px-3 py-4  text-white focus:bg-gray-600 focus:outline-none">Регистрация</button>
+                    
                 </div>
-
-                <p className="text-center text-sm text-gray-500">У вас есть аккаунт ?
+                {err && <p className="flex items-center justify-center pb-3 text-md"><b>{err}</b></p>}
+                <p className="text-center text-md text-gray-500">У вас есть аккаунт ?
                     <span
-                        className="font-semibold text-gray-600 hover:underline focus:text-gray-800 focus:outline-none"><Link to="/login"> Авторизуйтесь</Link>
+                        className="font-semibold text-gray-600 text-md hover:underline focus:text-gray-800 focus:outline-none"><Link to="/login"> Авторизуйтесь</Link>
                     </span>.
                 </p>
             </form>

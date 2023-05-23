@@ -47,7 +47,7 @@ function Navbar() {
                     </div>
                     <div className="flex items-center  justify-end gap-3">
                             <span>{button}</span>
-                            <a className="inline-flex items-center justify-center rounded-xl  px-3 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-[#ffffff30] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 mr-8">{currentUser ? <span className="link" onClick={logout}>Выход</span> : <div><Link  to="/register">Регистрация</Link> / <Link  to="/login">Вход</Link></div>}</a>
+                            <span className="inline-flex items-center justify-center rounded-xl  px-3 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-[#ffffff30] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 mr-8">{currentUser ? <span className="link" onClick={logout}>Выход</span> : <div><Link  to="/register">Регистрация</Link> / <Link  to="/login">Вход</Link></div>}</span>
                     </div>   
             </div>
             
