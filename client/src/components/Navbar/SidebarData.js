@@ -12,7 +12,7 @@ export const SidebarData = [
   },
   {
     title: 'О нас',
-    path: '/reports',
+    path: '/aboutus',
     icon: <IoIcons.IoIosPaper />,
     cName: 'nav-text'
   },

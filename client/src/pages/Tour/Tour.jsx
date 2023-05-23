@@ -4,7 +4,6 @@ import '../../components/Navbar/Navbar.css';
 import "../../style.scss"
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Filter from '../../components/Filters/Filters';
 
 
 function Tour() {
@@ -17,6 +16,7 @@ function Tour() {
     const [spring, setSpring] = useState([]);
 
    
+
 
     useEffect(()=>{
         const fetchData = async ()=>{
@@ -88,7 +88,8 @@ function Tour() {
         <div className="text-center p-10">
             <h1 className="font-bold text-4xl ">Туры по России</h1>
         </div>
-        
+
+
         
         <>
         <label name="contact" className="label-job" for="contactChoice1">

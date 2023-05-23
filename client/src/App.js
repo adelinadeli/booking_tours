@@ -17,10 +17,12 @@ import OneTour from "./pages/Tour/OneTour";
 import AboutUs from "./pages/AboutUs";
 import PotborTour from "./pages/Tour/PotborTour"
 import Home from "./pages/Home";
-import Filter from '../src/components/Filters/Filters';
+
+
 
 import AplicationUser from "./pages/Admin/applicationuser/ApplicationUser";
 import "./style.scss"
+import Messages from "./pages/Messages";
 
 const Layout = () => {
   return (
@@ -38,9 +40,10 @@ const router = createBrowserRouter([
     element: <Layout/>,
     children: [
       {
-        path: "/Filter",
-        element: <Filter/>,
-      },{
+        path: "/Messages",
+        element: <Messages/>,
+      },
+      {
         path: "/Novosti",
         element: <Novosti/>,
       },

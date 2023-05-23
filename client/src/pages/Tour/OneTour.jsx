@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import moment from "moment";
 import "moment/locale/ru";
+import Boking from '../../components/Boking.jsx';
+
 
 function OneTour() {
     const [tour, setTour] = useState([]);
@@ -13,7 +15,12 @@ function OneTour() {
     const location = useLocation();
     const tourId = location.pathname.split("/")[2];
 
-    
+    let sum1 = 10;
+   let sum2 = 10;
+
+   let result = sum1 + sum2;
+
+   
 
     console.log(schedules)
 
@@ -55,7 +62,7 @@ function OneTour() {
                 {tour.name_tour}
                 </h3>
                 <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                    Подробности и информация о туре.
+                    Подробности и информация о туре. {result}
                 </p>
             </div>
             
@@ -171,7 +178,11 @@ function OneTour() {
         <div className="py-10">
                <p>{tour.desc}</p>
         </div>
+
+
+        <Boking/>
     </>
+    
   )
 }
 
