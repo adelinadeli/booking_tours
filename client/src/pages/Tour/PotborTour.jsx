@@ -16,6 +16,8 @@ function PotborTour() {
 
     const navigate = useNavigate();
 
+    
+
 
     const handleChange = (e) => {
       setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -43,17 +45,19 @@ function PotborTour() {
         }
         return isValid    };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (validateInputs()) {
-            try {
+       
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+            if (validateInputs()) {
+              try {
                 await axios.post("/authuser/application", inputs);
-            navigate("/");
-            } catch (err) {
+                
+                navigate("/");
+              } catch (err) {
                 setError(err.response.data);
+              }
             }
-        }
-    };
+          };
 
     return (
       <>

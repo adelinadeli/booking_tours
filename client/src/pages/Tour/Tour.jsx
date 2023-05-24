@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import background from '../../img/fon.jpg';
 import '../../components/Navbar/Navbar.css';
 import '../../style.scss';
@@ -8,26 +8,22 @@ import axios from 'axios';
 function Tour() {
     const [tours, setTours] = useState([]);
     const [checkedSeasons, setCheckedSeasons] = useState([]);
-    const [season, setSeason] = useState('');
-    const [summerTours, setSummerTours] = useState([]);
-    const [winterTours, setWinterTours] = useState([]);
-    const [autumnTours, setAutumnTours] = useState([]);
-    const [springTours, setSpringTours] = useState([]);
+    const page = useRef(1);
+    const loader = useRef(null);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await axios.get(`/tour`);
-                setTours(res.data);
-            } catch (err) {
-                console.log(err)
-            }
-        };
-        fetchData();
+        loadMoreTours();
     }, []);
 
-    
-  
+    const loadMoreTours = async () => {
+        try {
+            const res = await axios.get(`/tour?page=${page.current}`);
+            setTours([...tours, ...res.data]);
+            page.current++;
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const handleCheckboxChange = (e) => {
         const season = e.target.value;
@@ -48,22 +44,34 @@ function Tour() {
 
     const filteredTours = filterTours(tours, checkedSeasons);
 
+    const clearFilter = () => {
+        setCheckedSeasons([]);
+    };
+
+    const handleObserver = (entities) => {
+        const target = entities[0];
+        if(target.isIntersecting) {
+            loadMoreTours();
+        }
+    };
+
+    useEffect(() => {
+        const options = {
+            root: null,
+            rootMargin: '20px',
+            threshold: 1.0
+        };
+        const observer = new IntersectionObserver(handleObserver, options);
+        if (loader.current) {
+            observer.observe(loader.current);
+        }
+    }, []);
+
     return (
         <>
             <div className="text-center p-10">
                 <h1 className="font-bold text-4xl">Туры по России</h1>
             </div>
-        {/* <>
-            {tours.map((tour) => (
-                    <div className="flex justify-center mb-5" key={tour.tour_id}>
-                        <label className="mr-4">
-                            <input type="checkbox" value={tour.season} checked={checkedSeasons.includes(`{tour.season}`)} onChange={handleCheckboxChange} className="mr-1" />
-                            {tour.season}
-                        </label>
-                    </div>
-                    
-        ))}
-        </> */}
 
             <div className="flex justify-center mb-5">
                 <label className="mr-4">
@@ -71,17 +79,18 @@ function Tour() {
                     Лето
                 </label>
                 <label className="mr-4">
-                    <input type="checkbox" value="Осень" checked={checkedSeasons.includes('Осень')} onChange={handleCheckboxChange} className="mr-1" />
+                    <input type="checkbox" value="Осень" checked={checkedSeasons.includes("Осень")} onChange={handleCheckboxChange} className="mr-1" />
                     Осень
                 </label>
                 <label className="mr-4">
                     <input type="checkbox" value="Зима" checked={checkedSeasons.includes('Зима')} onChange={handleCheckboxChange} className="mr-1" />
                     Зима
-                </label>
+               </label>
                 <label className="mr-4">
                     <input type="checkbox" value="Весна" checked={checkedSeasons.includes('Весна')} onChange={handleCheckboxChange} className="mr-1" />
                     Весна
                 </label>
+                <button className="ml-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded" onClick={clearFilter}>Очистить фильтр</button>
             </div>
 
             <div className="w-fit ml-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mb-5">
@@ -110,6 +119,7 @@ function Tour() {
                         </div>
                     </div>
                 ))}
+                <div ref={loader}></div>
             </div>
         </>
     );

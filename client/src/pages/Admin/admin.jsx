@@ -50,6 +50,9 @@ function Admin() {
         
   return (
     <>
+
+    
+
       <table className="min-w-full divide-y divide-gray-200 overflow-x-auto">
     <thead className="bg-gray-50">
         <tr>
@@ -105,14 +108,6 @@ function Admin() {
             </td>
         </tr>
     ))}
-
-
-        
-
-
-
-        {/* <!-- More rows... --> */}
-
     </tbody>
 </table>
     </>
