@@ -1,90 +1,239 @@
-import { db } from "../db.js";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-// export const getPosts = (req,res)=>{
-//     const q = req.query.cat ? "SELECT * FROM posts WHERE cat=?" : "SELECT * FROM posts";
+function PotborTour() {
+  const [inputs, setInputs] = useState({
+    user_name: '',
+    phone_number: '',
+    email: '',
+  });
+  const [nameError, setNameError] = useState(null);
+  const [phoneError, setPhoneError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
+  const [err, setError] = useState(null);
 
-//     db.query(q, [req.query.cat], (err,data)=>{
-//         if(err) return res.status(500).send(err);
+  const navigate = useNavigate();
 
-//         return res.status(200).json(data);
-//     });
-// };
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
-export const getPost = (req,res)=>{
-    const q = "SELECT tour_id,`name_tour`, `headline`, `desc`, `group`, `city`, `prise`, `img`, tour.tout_schedule_id , tour.difficulty_level_id , tour.season_id , tour.type_tour_id , tour.accommodation_id  FROM tour JOIN tout_schedule ON tour.tout_schedule_id=tout_schedule.tout_schedule_id JOIN difficulty_level ON tour.difficulty_level_id=difficulty_level.difficulty_level_id JOIN season ON tour.season_id=season.season_id JOIN type_tour ON tour.type_tour_id=type_tour.type_tour_id JOIN accommodation ON tour.accommodation_id=accommodation.accommodation_id";
+  const validateInputs = () => {
+    let isValid = true;
+    if (!inputs.user_name) {
+      setNameError('Введите имя');
+     isValid = false;
+    } else {
+      setNameError(null);
+    }
+    if (
+      !inputs.phone_number ||
+      !inputs.phone_number.match(/^8\s\d{3}\s\d{3}\s\d{2}\s\d{2}$/)
+    ) {
+      setPhoneError(
+        "Введите корректный номер телефона в формате '8 XXX XXX XX XX'"
+      );
+      isValid = false;
+    } else {
+      setPhoneError(null);
+    }
+    if (
+      !inputs.email ||
+      !inputs.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
+    ) {
+      setEmailError('Введите корректный email');
+      isValid = false;
+    } else {
+      setEmailError(null);
+    }
+    return isValid;
+  };
 
-    db.query(q, [req.params.id], (err, data)=> {
-        if(err) return res.status(500).json(err);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validateInputs()) {
+      try {
+        // Check if the user has already submitted an application with the same email or phone number
+        const existingApplication = await axios.get(
+          `/authuser/application?email=${inputs.email}&phone_number=${inputs.phone_number}`
+        );
+        if (existingApplication.data) {
+          setError('Вы уже отправляли заявку');
+        } else {
+          // Save the new application to the database
+          await axios.post('/authuser/application', inputs);
+          navigate('/');
+        }
+      } catch (err) {
+        setError(err.response.data);
+      }
+    }
+  };
 
-        return res.status(200).json(data[0])
-        
-    });
-};
+  return (
+    <>
+      <div className="flex flex-wrap">
+        <div className="w-full sm:w-8/12 ">
+          <div className="container mx-auto h-full sm:p-10">
+            <nav className="flex px-4 justify-between items-center">
+              <div className="text-4xl font-bold">
+                Plant<span className="text-green-700">.</span>
+              </div>
+              <div>
+                <img src="" alt="" className="w-8" />
+              </div>
+            </nav>
+            <header className="container px-4 lg:flex  items-center h-full lg:mt-0">
+              <div className="w-full ">
+                <h1 className="text-4xl lg:text-6xl font-bold">
+                  Заявка <span className="text-green-700">на</span> подбор тура
+                </h1>
+                <div className="max-w-md mr-auto mt-10 mb-10">
+                  <form className="p-0">
+                    <div className="mb-4">
+                      <label
+                        htmlFor="user_name"
+                        className="block text-gray-700 font-bold mb-2"
+                      >
+                        Имя
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        type="text"
+                        id="user_name"
+                        name="user_name"
+className={`border rounded w-full py-2 px-3 ${nameError ? 'border-red-500' : ''}`}
+                        value={inputs.user_name}
+                      />
+                      {nameError && (
+                        <p className="text-red-500 text-sm mt-1">{nameError}</p>
+                      )}
+                    </div>
+                    <div className="mb-4">
+                      <label
+                        htmlFor="phone_number"
+                        className="block text-gray-700 font-bold mb-2"
+                      >
+                        Номер телефона
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        type="text"
+                        id="phone_number"
+                        name="phone_number"
+                        className={`border rounded w-full py-2 px-3 ${
+                          phoneError ? 'border-red-500' : ''
+                        }`}
+                        value={inputs.phone_number}
+                      />
+                      {phoneError && (
+                        <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+                      )}
+                    </div>
+                    <div className="mb-4">
+                      <label
+                        htmlFor="email"
+                        className="block text-gray-700 font-bold mb-2"
+                      >
+                        Email
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        type="text"
+                        id="email"
+                        name="email"
+                        className={`border rounded w-full py-2 px-3 ${
+                          emailError ? 'border-red-500' : ''
+                       }`}
+                        value={inputs.email}
+                      />
+                      {emailError && (
+                        <p className="text-red-500 text-sm mt-1">{emailError}</p>
+                      )}
+                    </div>
+                    {err && <p className="text-red-500 text-sm mt-1">{err}</p>}
+                    <div className="flex justify-center">
+                      <button
+                        onClick={handleSubmit}
+                        className="bg-green-700 hover:bg-green-500 text-white font-bold py-2 px-4 rounded"
+                      >
+                        Отправить заявку
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </header>
+          </div>
+        </div>
+        <div className="w-full sm:w-4/12">
+          <img
+            src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80"
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+    </>
+  );
+}
 
-export const addPost = (req,res)=>{
-    
-            
-        const q = "INSERT INTO tour (`name_tour`, `headline`, `desc`, `group`, `city`, `prise`, `img`, `tout_schedule_id` , `difficulty_level_id` , `season_id` , `type_tour_id` , `accommodation_id`) VALUE (?)";
+export default PotborTour;
 
-        const values = [
-            req.body.name_tour,
-            req.body.headline,
-            req.body.desc,
-            req.body.group,
-            req.body.city,
-            req.body.prise,
-            req.body.img,
-            req.body.tout_schedule_id,
-            req.body.difficulty_level_id,
-            req.body.season_id,
-            req.body.type_tour_id,
-            req.body.accommodation_id,
-            
-        ]
-        db.query(q,[values], (err,data)=> {
-            if (err) return res.status(500).json(err);
-            return res.json("Тур создан.");
-        })
-    
-};
 
-export const deletePost = (req, res) => {
-        const tourId = req.params.id;
-        const q = "DELETE FROM tour WHERE `tour_id` = ? ";
-  
-        db.query(q, [tourId], (err, data) => {
-        if (err) return res.status(403).json("Вы можете удалить тур!");
-  
-        return res.json("Тур удален!");
-        });
-   
-};
 
-export const updatePost = (req, res) => {
-  
-
-    const tourId = req.params.id;
-    const q =
-      "UPDATE tour SET `name_tour`=?,`headline`=?,`decs`=?,`group`=?,`city`=?,`prise`=?,`group`=?,`img`=? ,`tout_schedule_id`=?,`difficulty_level_id`=?,`season_id`=?,`type_tour_id`=?,`accommodation_id`=? WHERE `tour_id` = ? ";
-
-    const values = [
-            req.body.name_tour,
-            req.body.headline,
-            req.body.desc,
-            req.body.group,
-            req.body.city,
-            req.body.prise,
-            req.body.img,
-            req.body.tout_schedule_id,
-            req.body.difficulty_level_id,
-            req.body.season_id,
-            req.body.type_tour_id,
-            req.body.accommodation_id,
-    ];
-
-    db.query(q, [...values, tourId], (err, data) => {
-      if (err) return res.status(500).json(err);
-      return res.json("Тур обновлен.");
-    });
-  
-};
+  {/* <div class="border border-gray-300 shadow-sm rounded-lg overflow-hidden max-w-sm mx-auto mt-16">
+        <table class="w-full text-sm leading-5">
+            <thead class="bg-gray-100">
+            <tr>
+                <th class="py-3 px-4 text-left font-medium text-gray-600">Nutrient</th>
+                <th class="py-3 px-4 text-left font-medium text-gray-600">Amount per Serving (100g)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="py-3 px-4 text-left font-medium text-gray-600">Calories</td>
+                <td class="py-3 px-4 text-left">240</td>
+            </tr>
+            <tr class="bg-gray-50">
+                <td class="py-3 px-4 text-left font-medium text-gray-600">Total Fat</td>
+                <td class="py-3 px-4 text-left">12g</td>
+            </tr>
+            <tr>
+                <td class="py-3 px-4 text-left font-medium text-gray-600 pl-8">Saturated Fat</td>
+                <td class="py-3 px-4 text-left">3.5g</td>
+            </tr>
+            <tr class="bg-gray-50">
+                <td class="py-3 px-4 text-left font-medium text-gray-600 pl-8">Trans Fat</td>
+                <td class="py-3 px-4 text-left">0g</td>
+            </tr>
+            <tr>
+                <td class="py-3 px-4 text-left font-medium text-gray-600">Cholesterol</td>
+                <td class="py-3 px-4 text-left">45mg</td>
+            </tr>
+            <tr class="bg-gray-50">
+                <td class="py-3 px-4 text-left font-medium text-gray-600">Sodium</td>
+                <td class="py-3 px-4 text-left">430mg</td>
+            </tr>
+            <tr>
+                <td class="py-3 px-4 text-left font-medium text-gray-600">Total Carbohydrate</td>
+                <td class="py-3 px-4 text-left">19g</td>
+            </tr>
+            <tr class="bg-gray-50">
+                <td class="py-3 px-4 text-left font-medium text-gray-600 pl-8">Dietary Fiber</td>
+                <td class="py-3 px-4 text-left">3g</td>
+            </tr>
+            <tr>
+                <td class="py-3 px-4 text-left font-medium text-gray-600 pl-8">Sugars</td>
+                <td class="py-3 px-4 text-left">4g</td>
+            </tr>
+            <tr class="bg-gray-50">
+                <td class="py-3 px-4 text-left font-medium text-gray-600">Protein</td>
+                <td class="py-3 px-4 text-left">22g</td>
+            </tr>
+            </tbody>
+        </table>
+        <button>Редактирование</button>
+        <button>Удаление</button>
+        </div> */}

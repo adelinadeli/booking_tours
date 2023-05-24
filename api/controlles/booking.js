@@ -1,26 +1,26 @@
-// import { db } from "../db.js";
+import { db } from "../db.js";
 
-// export const appBook = (req,res)=>{
-//     if(req.body.uid == "") return res.status(409).json("Введите  имя!");
-//     if(req.body.number_tickets == "") return res.status(409).json("Введите  телефон!");
-//     if(req.body.tout_schedule_id == "") return res.status(409).json("Введите  почта!");
+export const addBook = (req,res)=>{
+    if(req.body.uid == "") return res.status(409).json("Введите  имя!");
+    if(req.body.number_tickets == "") return res.status(409).json("Введите  телефон!");
+    if(req.body.tout_schedule_id == "") return res.status(409).json("Введите  почта!");
 
-//         const q = "INSERT INTO `booking`(`booking_id`, `uid`, `number_tickets`, `tout_schedule_id`, `statys`) VALUES (?))";
-//         const values = [
-//             null,
-//             req.body.uid,
-//             req.body.number_tickets,
-//             req.body.tout_schedule_id,
-//             'Новая'
-//         ]
+        const q = "INSERT INTO `booking`(`booking_id`, `uid`, `number_tickets`, `tout_schedule_id`, `statys`) VALUES (?))";
+        const values = [
+            null,
+            req.body.uid,
+            req.body.number_tickets,
+            req.body.tout_schedule_id,
+            'Новая'
+        ]
         
-//         db.query(q,[values], (err,data)=>{
-//             if(err) return res.status(500).json(err);
-//             console.log(err)
-//             return res.json("Заявка отправлена на расмотрение");
-//         });
+        db.query(q,[values], (err,data)=>{
+            if(err) return res.status(500).json(err);
+            console.log(err)
+            return res.json("Заявка отправлена на расмотрение");
+        });
    
-// };
+};
 
 // export const deleteBook = (req,res)=>{
    

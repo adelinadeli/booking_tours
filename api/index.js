@@ -41,13 +41,23 @@ app.use("/api/tours", toursRoutes);
 // SELECT tout_schedule_id,start_tout_schedule AS start_tour , end_tout_schedule AS start_tour , tour.name_tour, tour.headline,tour.desc, tour.group, tour.city, tour.prise, tour.img, difficulty_level.name_difficulty_level AS level, season.name_season AS season, type_tour.name_type_tour AS name_type, accommodation.name_accommodation AS accommodation FROM tout_schedule JOIN tour on tout_schedule.tour_id = tour.tour_id JOIN difficulty_level ON tour.difficulty_level_id = difficulty_level.difficulty_level_id JOIN season on tour.season_id = season.season_id JOIN type_tour on tour.type_tour_id = type_tour.type_tour_id JOIN accommodation on tour.accommodation_id = accommodation.accommodation_id ORDER BY `tout_schedule`.`tout_schedule_id` ASC
 
 app.get("/api/tour", function (req, res){
-    const q = "SELECT tour.tour_id, name_tour, headline, `desc`, `group`, city, prise, img,  difficulty_level.name_difficulty_level AS level, season.name_season AS season, type_tour.name_type_tour AS name_type, accommodation.name_accommodation AS accommodation FROM tour JOIN difficulty_level ON tour.difficulty_level_id = difficulty_level.difficulty_level_id JOIN season on tour.season_id = season.season_id JOIN type_tour on tour.type_tour_id = type_tour.type_tour_id JOIN accommodation on tour.accommodation_id = accommodation.accommodation_id";
-    
-    db.query(q, [req.params.id], (err, data)=> {
-    if(err) return res.status(500).json(err);
+  const q = "SELECT tour.tour_id, name_tour, headline, `desc`, `group`, city, prise, img,  difficulty_level.name_difficulty_level AS level, season.name_season AS season, type_tour.name_type_tour AS name_type, accommodation.name_accommodation AS accommodation FROM tour JOIN difficulty_level ON tour.difficulty_level_id = difficulty_level.difficulty_level_id JOIN season on tour.season_id = season.season_id JOIN type_tour on tour.type_tour_id = type_tour.type_tour_id JOIN accommodation on tour.accommodation_id = accommodation.accommodation_id";
+  
+  db.query(q, [req.params.id], (err, data)=> {
+  if(err) return res.status(500).json(err);
 
-    return res.status(200).json(data)
-    
+  return res.status(200).json(data)
+  
+});
+})
+app.get("/api/toutschedule", function (req, res){
+  const q = "SELECT * FROM tout_schedule ORDER BY tout_schedule.tout_schedule_id DESC";
+  
+  db.query(q, [req.params.id], (err, data)=> {
+  if(err) return res.status(500).json(err);
+
+  return res.status(200).json(data)
+  
 });
 })
 app.get("/api/authuser/application", function (req, res){
@@ -61,16 +71,16 @@ app.get("/api/authuser/application", function (req, res){
 });
 })
 
-// app.get("/api/booking/book", function (req, res){
-//   const q = "SELECT booking.*, user.surname, user.username, user.email, tout_schedule.start_tout_schedule, tout_schedule.end_tout_schedule, tout_schedule.tour_id , tout_schedule.count FROM booking JOIN user on booking.uid = user.id JOIN tout_schedule ON booking.tout_schedule_id = tout_schedule.tout_schedule_id";
+app.get("/api/booking", function (req, res){
+  const q = "SELECT booking_id, user.surname, user.username, user.email, user.telephone, number_tickets, tout_schedule.start_tout_schedule,tout_schedule.end_tout_schedule, tout_schedule.tour_id, tout_schedule.count, statys FROM booking JOIN user ON booking.uid = user.id JOIN tout_schedule on booking.tout_schedule_id = tout_schedule.tout_schedule_id";
   
-//   db.query(q, [req.params.id], (err, data)=> {
-//   if(err) return res.status(500).json(err);
+  db.query(q, [req.params.id], (err, data)=> {
+  if(err) return res.status(500).json(err);
 
-//   return res.status(200).json(data)
+  return res.status(200).json(data)
   
-// });
-// })
+});
+})
 
 
 

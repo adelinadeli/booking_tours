@@ -51,7 +51,9 @@ function Admin() {
   return (
     <>
 
-    
+    <div className="">
+        <Link to="/toursadmin">Туры</Link>
+    </div>
 
       <table className="min-w-full divide-y divide-gray-200 overflow-x-auto">
     <thead className="bg-gray-50">

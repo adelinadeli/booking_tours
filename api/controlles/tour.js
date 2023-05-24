@@ -55,7 +55,7 @@ export const deleteTour = (req, res) => {
       
 
       const tourId = req.params.id;
-      const q = "DELETE FROM tour WHERE `tour_id` = ? AND `tout_schedule_id` = ? ";
+      const q = "DELETE FROM tour WHERE `tour_id` = ? ";
   
       db.query(q, [tourId], (err, data) => {
         if (err) return res.status(500).json(err);

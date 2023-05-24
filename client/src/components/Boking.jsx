@@ -6,25 +6,30 @@ import axios from 'axios';
 function Boking() {
 
 	
+	const [surname, setSurname] = useState("");
+    const [username, setUsername] = useState("");
+	const [email, setEmail] = useState("");
+    // const [telephone, setTelephone] = useState("");
 
-	// const [uid, setUid] = useState("");
-    // const [number_tickets, setTickets] = useState("");
-    // // const [tout_schedule_id, setSchedule] = useState("");
-	//   const [err, setError] = useState(null);
+	const [uid, setUid] = useState("");
+    const [number_tickets, setTickets] = useState("");
+    // const [tout_schedule_id, setTickets] = useState("");
+    const [tout_schedule_id, setSchedule] = useState("");
+	  const [err, setError] = useState(null);
   
 	 
-	// 	const handleSubmit = async (e) => {
-	// 	  e.preventDefault();
-	// 	  try {
-	// 		await axios.post("/booking/book", {
-	// 			uid, number_tickets, tout_schedule_id : ""
-	// 		});
+		const handleSubmit = async (e) => {
+		  e.preventDefault();
+		  try {
+			await axios.post("/booking/book", {
+				uid,number_tickets,tout_schedule_id
+			});
 			
-	// 	  } catch (err) {
-	// 		setError(err.response.data);
+		  } catch (err) {
+			setError(err.response.data);
 			
-	// 	  }
-	// 	};
+		  }
+		};
 		
 
 
@@ -54,6 +59,7 @@ function Boking() {
 										Введите фамилию
 									</label>
 									<input
+									onChange={e=>setSurname(e.target.value)}
 										class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
 										id="firstName"
 										type="text"
@@ -66,6 +72,7 @@ function Boking() {
 										Введите имя
 									</label>
 									<input
+									onChange={e=>setUsername(e.target.value)}
 										class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
 										id="lastName"
 										type="text"
@@ -79,6 +86,7 @@ function Boking() {
 									Введите почту
 								</label>
 								<input
+								onChange={e=>setEmail(e.target.value)}
 									class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
 									id="email"
 									type="email"
@@ -92,6 +100,7 @@ function Boking() {
 										Дата заезда
 									</label>
 									<input
+									onChange={e=>setSchedule(e.target.value)}
 										class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
 										id="date"
 										type="text"
@@ -105,6 +114,7 @@ function Boking() {
 										Количество билетов
 									</label>
 									<input
+									onChange={e=>setSchedule(e.target.value)}
 										class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
 										id="count"
 										type="text"
@@ -115,6 +125,7 @@ function Boking() {
 							</div>
 							<div class="mb-6 text-center">
 								<button
+								onClick={handleSubmit}
 									class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
 									type="button"
 								>

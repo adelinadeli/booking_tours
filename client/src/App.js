@@ -17,6 +17,7 @@ import OneTour from "./pages/Tour/OneTour";
 import AboutUs from "./pages/AboutUs";
 import PotborTour from "./pages/Tour/PotborTour"
 import Home from "./pages/Home";
+import ToursAdmin from "./pages/Admin/ToursAdmin";
 
 
 
@@ -46,6 +47,9 @@ const router = createBrowserRouter([
       {
         path: "/Novosti",
         element: <Novosti/>,
+      }, {
+        path: "/ToursAdmin",
+        element: <ToursAdmin/>,
       },
       {
         path: "/",
