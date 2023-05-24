@@ -35,6 +35,29 @@ const Register = () => {
 
     const handleSubmit = async e => {
         e.preventDefault()
+
+        if (!surname || !username || !login || !email || !telephone || !password) {
+            setError("Пожалуйста, заполните все обязательные поля.");
+            return;
+        }
+    
+        const emailRegex = /^\S+@\S+\.\S+$/;
+        if (!emailRegex.test(email)) {
+            setError("Пожалуйста, введите действительный адрес электронной почты.");
+            return;
+        }
+        
+        const phoneRegex = /^8\s\d{3}\s\d{3}\s\d{2}\s\d{2}$/;
+        if (!phoneRegex.test(telephone)) {
+            setError("Пожалуйста, введите действительный номер телефона в формате'8 XXX XXX XX XX'.");
+            return;
+        }
+    
+        if (password.length < 8) {
+            setError("Пароль должен быть не менее 8 символов.");
+            return;
+        }
+
         const img = await upload();
         try{
             await axios.post("/auth/register", {
@@ -45,6 +68,8 @@ const Register = () => {
            setError(err.response.data);
         }
     }
+
+
 
 
 

@@ -3,7 +3,7 @@ import { db } from "../db.js";
 // import bcrypt from "bcryptjs";
 
 
-export const application = (req,res)=>{
+export const appAplication = (req,res)=>{
     if(req.body.user_name == "") return res.status(409).json("Введите  имя!");
     if(req.body.phone_number == "") return res.status(409).json("Введите  телефон!");
     if(req.body.email == "") return res.status(409).json("Введите  почта!");
@@ -24,7 +24,7 @@ export const application = (req,res)=>{
    
 };
 
-export const deletelication = (req,res)=>{
+export const deleteAplication = (req,res)=>{
    
         const applicationId = req.params.id;
       const q = "DELETE FROM application WHERE application_id = ?";
@@ -38,7 +38,7 @@ export const deletelication = (req,res)=>{
    
 };
 
-export const updatelication = (req,res)=>{
+export const updateAplication = (req,res)=>{
     
         const applicationId = req.params.id;
         const q = "UPDATE application SET `application_id`='?',`user_name`='?',`phone_number`='?',`email`='?',`application_status`='?' WHERE application_id = ?";

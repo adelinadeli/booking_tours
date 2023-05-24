@@ -1,11 +1,11 @@
 import express from "express";
-import { application,updatelication,deletelication} from "../controlles/authuser.js";
+import { appAplication,updateAplication,deleteAplication} from "../controlles/authuser.js";
 
 const router = express.Router()
 
-router.post("/application", application)
-router.delete("/:id", deletelication)
-router.put("/:id", updatelication)
+router.post("/application", appAplication)
+router.delete("/:id", deleteAplication)
+router.put("/:id", updateAplication)
 
 
 

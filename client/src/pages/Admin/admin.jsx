@@ -14,8 +14,17 @@ function Admin() {
     
         
     
-        // const { currentUser } = useContext(AuthContext);
+        const { currentUser } = useContext(AuthContext);
     
+        const location = useLocation();
+        const navigate = useNavigate();
+
+        useEffect(() => {
+            if (!currentUser) {
+                navigate('/login');
+            }
+        }, [currentUser, navigate]);
+
         console.log()
     
         useEffect (()=>{

@@ -49,6 +49,38 @@ function OneTour() {
         }
         fetchData()
     },[tourId]);
+    // const handleClick = async e=>{
+    //     e.preventDefault()
+        
+    //     const imgUrl = await upload()
+    //     console.log(imgUrl)
+    //     console.log(id)
+    //     // const res = await axios.get(/posts/child/${id})
+            
+    //     //     setChild(res.data)
+    //     //     console.log(res.data)
+    //     //     console.log(child.name_kid)
+        
+
+
+    //     try{              
+    //         await axios.post(/bookings/addphoto/,{
+    //           id,imgUrl,
+    //         });
+    //             await axios.put(/posts/addphoto/{
+    //               id,imgUrl,
+    //             });
+    //         // navigate("/")
+    //     }
+    //     catch(err){
+    //         console.error(err.response.data)
+    //         setError(err.response.data)
+    //     }
+        
+
+    // }
+
+
 
     
   return (
